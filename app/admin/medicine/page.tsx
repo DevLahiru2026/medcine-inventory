@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import MedicineIssueForm from "@/components/admin/MedicineIssueForm";
 
-export default function MedicinePage() {
+function MedicinePageContent() {
   const searchParams = useSearchParams();
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -34,5 +34,13 @@ export default function MedicinePage() {
       )}
       <MedicineIssueForm />
     </>
+  );
+}
+
+export default function MedicinePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MedicinePageContent />
+    </Suspense>
   );
 }
