@@ -40,15 +40,15 @@ export default function MedicineGRNForm() {
   // --- derived ---
   const filtered = useMemo(() => {
     const q = filter.toLowerCase();
-    const list = drugs.filter((d) => d.name.toLowerCase().includes(q));
+    const list = drugs.filter((d) => d.name.toLowerCase().includes(q)).sort((a, b) => a.name.localeCompare(b.name));
     if (!lastReceivedDrug) return list;
     return list.sort((a, b) => (b.name === lastReceivedDrug ? 1 : 0) - (a.name === lastReceivedDrug ? 1 : 0));
   }, [drugs, filter, lastReceivedDrug]);
 
   const drugDropdown = useMemo(() => {
-    if (!drugSearch) return drugs;
+    if (!drugSearch) return [...drugs].sort((a, b) => a.name.localeCompare(b.name));
     const q = drugSearch.toLowerCase();
-    return drugs.filter((d) => d.name.toLowerCase().includes(q));
+    return drugs.filter((d) => d.name.toLowerCase().includes(q)).sort((a, b) => a.name.localeCompare(b.name));
   }, [drugs, drugSearch]);
 
   // --- handlers ---

@@ -24,15 +24,15 @@ export default function MedicineIssueForm() {
   // --- derived ---
   const filtered = useMemo(() => {
     const q = filter.toLowerCase();
-    const list = drugs.filter((d) => d.name.toLowerCase().includes(q));
+    const list = drugs.filter((d) => d.name.toLowerCase().includes(q)).sort((a, b) => a.name.localeCompare(b.name));
     if (!lastIssuedDrug) return list;
     return list.sort((a, b) => (b.name === lastIssuedDrug ? 1 : 0) - (a.name === lastIssuedDrug ? 1 : 0));
   }, [drugs, filter, lastIssuedDrug]);
 
   const drugDropdown = useMemo(() => {
-    if (!drugSearch) return drugs;
+    if (!drugSearch) return [...drugs].sort((a, b) => a.name.localeCompare(b.name));
     const q = drugSearch.toLowerCase();
-    return drugs.filter((d) => d.name.toLowerCase().includes(q));
+    return drugs.filter((d) => d.name.toLowerCase().includes(q)).sort((a, b) => a.name.localeCompare(b.name));
   }, [drugs, drugSearch]);
 
   const selectedDrugData = drugs.find((d) => d.name === selectedDrug);

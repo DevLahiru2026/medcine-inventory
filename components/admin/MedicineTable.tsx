@@ -226,7 +226,7 @@ export default function MedicineTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {medicines.map((m) => (
+            {[...medicines].sort((a, b) => a.name.localeCompare(b.name)).map((m) => (
               <React.Fragment key={m.id}>
               <tr className="hover:bg-gray-50 transition-colors">
                 <td className="px-4 py-3 text-gray-400 font-mono">{m.id}</td>
